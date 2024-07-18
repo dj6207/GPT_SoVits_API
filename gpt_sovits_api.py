@@ -14,7 +14,7 @@ class ReferenceAudio(TypedDict):
 class GenerateAudioBody(BaseModel):
     ref_audio:ReferenceAudio | None = None,
     input_prompt:str 
-    input_prompt_lang:LANGUAGE 
+    input_prompt_lang:LANGUAGE
     cut:CUT_TYPE = 'cut_every_punctuation'
     top_k:int = 20
     top_p:float = 0.6
@@ -22,8 +22,8 @@ class GenerateAudioBody(BaseModel):
 
 app = FastAPI()
 gpt_sovits = GPT_SoVITS(
-    gpt_path="./ezecrain-e50.ckpt",
-    sovits_path="./ezecrain_e24.pth",
+    gpt_path="./models/gpt/michael_en.ckpt",
+    sovits_path="./models/vits/michael_en.pth",
     hubert_path=os.environ.get("hubert_base_path", "hubert-base-ls960"),
     bert_path=os.environ.get("bert_path", "xlm-roberta-large")
 )
@@ -35,9 +35,9 @@ async def check_connection():
 @app.post("/api/inference")
 async def generate_audio(req_body:GenerateAudioBody):
     result_audio = gpt_sovits.get_tts_wav(
-        ref_wav_path="./ezecrain_ref.wav",
-        ref_wav_text="その身を削り命を懸けてこの世にお前を送り出してくれたのだろう父親というのは",
-        ref_wav_lang="all_ja",
+        ref_wav_path="./reference_audio/michael/michael_ref.wav",
+        ref_wav_text="This is not pro Rust at all. On paper, Rust seemed like the programming language designed by the gods. Not only is it the fastest programming language out there",
+        ref_wav_lang="en",
         input_prompt=req_body.input_prompt,
         input_prompt_lang=req_body.input_prompt_lang,
         cut=req_body.cut,

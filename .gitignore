@@ -3,6 +3,8 @@
 __pycache__
 hubert-base-ls960
 xlm-roberta-large
+reference_audio
+models
 
 # Individual files
 
