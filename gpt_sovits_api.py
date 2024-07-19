@@ -4,7 +4,7 @@ from typing_extensions import TypedDict
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
-from new_audio_gen import LANGUAGE, CUT_TYPE, GPT_SoVITS, save_audio
+from audio_gen import LANGUAGE, CUT_TYPE, GPT_SoVITS, save_audio
 
 class ReferenceAudio(TypedDict):
     ref_wav:str
@@ -24,8 +24,8 @@ app = FastAPI()
 gpt_sovits = GPT_SoVITS(
     gpt_path="./models/gpt/michael_en.ckpt",
     sovits_path="./models/vits/michael_en.pth",
-    hubert_path=os.environ.get("hubert_base_path", "hubert-base-ls960"),
-    bert_path=os.environ.get("bert_path", "xlm-roberta-large")
+        hubert_path=os.environ.get("hubert_base_path", "./base/chinese/chinese-hubert-base"),
+        bert_path=os.environ.get("bert_path", "./base/chinese/chinese-roberta-wwm-ext-large")
 )
 
 @app.get("/")

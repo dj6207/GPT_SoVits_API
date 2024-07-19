@@ -1,0 +1,1 @@
+This is not pro Rust at all. On paper, Rust seemed like the programming language designed by the gods. Not only is it the fastest programming language out there

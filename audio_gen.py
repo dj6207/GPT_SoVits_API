@@ -461,20 +461,20 @@ def save_audio(sampling_rate:int, audio_data:np.ndarray, save_path:str="./", sav
 
 if __name__ == "__main__":
     audio_gen = GPT_SoVITS(
-        gpt_path="./michael_en.ckpt",
-        sovits_path="./michael_en.pth",
-        hubert_path=os.environ.get("hubert_base_path", "hubert-base-ls960"),
-        bert_path=os.environ.get("bert_path", "xlm-roberta-large")
-        # hubert_path=os.environ.get("cnhubert_base_path", "chinese-hubert-base"),
-        # bert_path=os.environ.get("bert_path", "chinese-roberta-wwm-ext-large")
+        gpt_path="./models/gpt/michael_en.ckpt",
+        sovits_path="./models/vits/michael_en.pth",
+        # hubert_path=os.environ.get("hubert_base_path", "./base/english/hubert-base-ls960"),
+        # bert_path=os.environ.get("bert_path", "./base/english/xlm-roberta-large")
+        hubert_path=os.environ.get("hubert_base_path", "./base/chinese/chinese-hubert-base"),
+        bert_path=os.environ.get("bert_path", "./base/chinese/chinese-roberta-wwm-ext-large")
 
     )
     result = audio_gen.get_tts_wav(
-        ref_wav_path="./michael_ref.wav",
+        ref_wav_path="./reference_audio/michael/michael_ref.wav",
         ref_wav_text="This is not pro Rust at all. On paper, Rust seemed like the programming language designed by the gods. Not only is it the fastest programming language out there",
         ref_wav_lang="en",
-        cut="no_cut",
-        input_prompt="I noticed that you used sob emote in your message. Just wanted to say, don’t give up anything in your life. I don’t know what you’re going through but I’m always here to help.",
+        cut="cut_every_punctuation",
+        input_prompt="I noticed that you used sob emote in your message and just wanted to say don’t give up anything in your life I don’t know what you’re going through but I’m always here to help.",
         input_prompt_lang="en",
     )
     # print(result)
